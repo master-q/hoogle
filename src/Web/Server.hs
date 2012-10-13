@@ -1,6 +1,6 @@
 {-# LANGUAGE RecordWildCards, ScopedTypeVariables, PatternGuards #-}
 
-module Web.Server(server) where
+module Web.Server(server, serveFile) where
 
 import General.Base
 import General.Web
