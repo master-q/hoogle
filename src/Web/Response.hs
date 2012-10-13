@@ -35,7 +35,7 @@ responseArgs = ResponseArgs version version defaultTemplates
 
 response :: ResponseArgs -> CmdLine -> IO Response
 response ResponseArgs{..} q = do
-    logMessage q
+    -- logMessage q
     let response x ys = responseOK ((hContentType, fromString x) : ys) . fromString
 
     dbs <- unsafeInterleaveIO $ case queryParsed q of
