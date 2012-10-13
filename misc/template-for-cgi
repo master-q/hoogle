@@ -1,0 +1,8 @@
+#!/bin/sh
+
+TEMPLATE=$HOME/.cabal/share/hoogle-4.2.13/resources/template.html
+
+cp -f $TEMPLATE $TEMPLATE.orig
+
+sed -i -e "s/res\//hoogle\/res\//g" $TEMPLATE
+sed -i -e "s/action=\"\.\"/action=\"\.\/hoogle\"/g" $TEMPLATE
