@@ -3,6 +3,7 @@ module Console.All(action) where
 
 import CmdLine.All
 import Recipe.All
+import Recipe.Hackage
 import Console.Log
 import Console.Search
 import Console.Test
@@ -36,12 +37,15 @@ action x@Data{} = recipes x
 
 action (Log files) = logFiles files
 
-action (Convert from to) = do
+action (Convert from to addloc) = do
     to <- return $ if null to then replaceExtension from "hoo" else to
     when (any isUpper $ takeBaseName to) $ putStrLn $ "Warning: Hoogle databases should be all lower case, " ++ takeBaseName to
     putStrLn $ "Converting " ++ from
     src <- readFileUtf8 from
-    let (err,db) = createDatabase Haskell [] src
+    let from' = "file:/" ++ from
+        src' = if addloc then unlines . haddockPackageUrl from' . lines $ src
+               else src
+        (err,db) = createDatabase Haskell [] src'
     unless (null err) $ putStr $ unlines $ "Warning: parse errors" : map show err
     saveDatabase to db
     putStrLn $ "Written " ++ to

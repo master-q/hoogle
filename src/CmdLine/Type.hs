@@ -34,7 +34,7 @@ data CmdLine
     | Data {redownload :: Bool, local :: [String], datadir :: FilePath, threads :: Int, actions :: [String]}
     | Server {port :: Int, local_ :: Bool, databases :: [FilePath], resources :: FilePath, dynamic :: Bool, template :: [FilePath]}
     | Combine {srcfiles :: [FilePath], outfile :: String}
-    | Convert {srcfile :: String, outfile :: String}
+    | Convert {srcfile :: String, outfile :: String, addlocation :: Bool}
     | Log {logfiles :: [FilePath]}
     | Test {testFiles :: [String], example :: Bool}
     | Dump {database :: String, section :: [String]}
@@ -92,6 +92,7 @@ combine = Combine
 convert = Convert
     {srcfile = def &= argPos 0 &= typ "INPUT"
     ,outfile = def &= argPos 1 &= typ "DATABASE" &= opt ""
+    ,addlocation = def &= help "Add location infomation to database"
     } &= help "Convert an input file to a database"
 
 data_ = Data

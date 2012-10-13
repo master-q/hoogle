@@ -1,5 +1,5 @@
 
-module Recipe.Hackage(makePlatform, makeDefault, makePackage, makeAll) where
+module Recipe.Hackage(makePlatform, makeDefault, makePackage, makeAll, haddockPackageUrl) where
 
 import Recipe.Type
 import Recipe.Cabal
